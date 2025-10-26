@@ -17,5 +17,6 @@ def accounts(request: HttpRequest):
             return JsonResponse({
                 'id': account.id,
                 'name': account.name,
-                'balance': account.balance
+                'balance': account.balance,
+                'created_at': account.created_at
             })
