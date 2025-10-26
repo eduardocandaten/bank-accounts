@@ -20,3 +20,21 @@ def accounts(request: HttpRequest):
                 'balance': account.balance,
                 'created_at': account.created_at
             })
+
+@csrf_exempt
+def transactions(request: HttpRequest):
+    match request.method:
+        case 'POST':
+            body = json.loads(request.body.decode('utf-8'))
+            transaction = Transaction.objects.create(
+                receiver_id=body['receiver_id'],
+                payer_id=body['payer_id'],
+                value=body['value']
+            )
+            return JsonResponse({
+                'id': transaction.id,
+                'receiver_id': transaction.receiver_id,
+                'payer_id': transaction.payer_id,
+                'value': transaction.value,
+                'date': transaction.date,
+            })
