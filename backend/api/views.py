@@ -19,7 +19,7 @@ def accounts(request: HttpRequest):
                 'name': account.name,
                 'balance': account.balance,
                 'created_at': account.created_at
-            })
+            }, status=201)
 
 @csrf_exempt
 def transactions(request: HttpRequest):
