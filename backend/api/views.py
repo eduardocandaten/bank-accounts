@@ -37,4 +37,4 @@ def transactions(request: HttpRequest):
                 'payer_id': transaction.payer_id,
                 'value': transaction.value,
                 'date': transaction.date,
-            })
+            }, status=201)
