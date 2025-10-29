@@ -32,4 +32,29 @@ class AccountViewTestCase(TestCase):
         
         self.assertEqual(response.status_code, 200)
         self.assertTrue(isinstance(data, list))
-    
+
+class TransactionViewTestCase(TestCase):
+    def test_post_transactions(self):
+        """POST /api/transactions with valid inputs"""
+        body = {
+            'receiver_id': 2,
+            'payer_id': 1,
+            'value': 50
+        }
+        response = self.client.post(
+            '/api/transactions/',
+            data=json.dumps(body),
+            content_type='application/json'
+        )
+        data = json.loads(response.content.decode())
+
+        self.assertEqual(response.status_code, 201)
+        self.assertEqual(data, {
+            'id': data['id'],
+            'receiver_id': 2,
+            'payer_id': 1,
+            'value': 50,
+            'date': data['date']
+        })
+        self.assertTrue(isinstance(data['id'], int))
+        self.assertTrue(isinstance(parse_datetime(data['date']), datetime))
